@@ -7,14 +7,14 @@ import reportWebVitals from './reportWebVitals';
 import Layout from './component/Layout';
 import Error from './component/Error'
 import About from './pages/About';
-import Host from './pages/Host';
+import Home from './pages/Home';
 import Login from './pages/Login';
 import Review from './pages/Review';
 import Vans from './pages/Vans';
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route element={<Layout />} errorElement={<Error />}>
-    <Route index element={<Host />} />
+    <Route index element={<Home />} />
     <Route path="about" element={<About />} />
     <Route path="vans" element={<Vans />} />
     <Route path="reviews" element={<Review />} />
