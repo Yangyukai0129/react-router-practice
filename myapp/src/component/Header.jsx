@@ -7,10 +7,19 @@ export default function Header() {
         <header>
             <Link className="site-logo" to="/">#VANLIFE</Link>
             <nav>
-                <NavLink to="/">Host</NavLink>
-                <NavLink to="/about">About</NavLink>
-                <NavLink to="/vans">Vans</NavLink>
-                <Link className="login-link" to="/login">
+                <NavLink
+                    to="host"
+                    className={({ isActive }) => isActive ? "active-link" : null}
+                >Host</NavLink>
+                <NavLink
+                    to="about"
+                    className={({ isActive }) => isActive ? "active-link" : null}
+                >About</NavLink>
+                <NavLink
+                    to="vans"
+                    className={({ isActive }) => isActive ? "active-link" : null}
+                >Vans</NavLink>
+                <Link className="login-link" to="login">
                     <img
                         src={avatar_icon}
                         className="login-icon"

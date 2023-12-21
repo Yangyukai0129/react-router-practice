@@ -9,15 +9,24 @@ import Error from './component/Error'
 import About from './pages/About';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Review from './pages/Review';
 import Vans from './pages/Vans';
+import Dashboard from './pages/Host/Dashboard';
+import HostVans from './pages/Host/HostVans';
+import Income from './pages/Host/Income';
+import Reviews from './pages/Host/Reviews';
+import HostLayout from './component/HostLayout';
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route element={<Layout />} errorElement={<Error />}>
     <Route index element={<Home />} />
+    <Route path="host" element={<HostLayout />}>
+      <Route index element={<Dashboard />} />
+      <Route path="hostvans" element={<HostVans />} />
+      <Route path="income" element={<Income />} />
+      <Route path="reviews" element={<Reviews />} />
+    </Route>
     <Route path="about" element={<About />} />
     <Route path="vans" element={<Vans />} />
-    <Route path="reviews" element={<Review />} />
     <Route path="login" element={<Login />} />
   </Route>
 ))
