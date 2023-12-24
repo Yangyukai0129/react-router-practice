@@ -23,7 +23,7 @@ export async function action({ request }) {
             // 清除localStorage中的特定数据
             localStorage.removeItem('user')
             // console.log('localStorage data cleared!');
-        }, 600000)
+        }, 100000)
         return redirect(pathname)
 
     }
