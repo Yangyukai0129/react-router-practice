@@ -8,14 +8,24 @@ export async function action({ request }) {
     const password = formData.get("password")
     const pathname = new URL(request.url).searchParams.get("redirectTo") || "/host"
     try {
-        await Auth(email, password)
-        localStorage.setItem("login", true)
+        await Auth(email, password).then(
+            user => {
+                const uid = user.uid
+                const login = {
+                    uid: uid,
+                    login: "true"
+                }
+                localStorage.setItem('user', JSON.stringify(login))
+            }
+        )
+        // localStorage.setItem("login", true)
         setTimeout(function () {
             // 清除localStorage中的特定数据
-            localStorage.removeItem('login');
+            localStorage.removeItem('user')
             // console.log('localStorage data cleared!');
-        }, 10000);
+        }, 600000)
         return redirect(pathname)
+
     }
     catch (err) {
         if (!email) {

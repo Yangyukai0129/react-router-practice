@@ -15,15 +15,40 @@ import HostVans from './pages/Host/HostVans';
 import Income from './pages/Host/Income';
 import Reviews from './pages/Host/Reviews';
 import HostLayout from './component/HostLayout';
+import { requireAuth } from './util';
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route element={<Layout />} errorElement={<Error />}>
     <Route index element={<Home />} />
     <Route path="host" element={<HostLayout />}>
-      <Route index element={<Dashboard />} />
-      <Route path="hostvans" element={<HostVans />} />
-      <Route path="income" element={<Income />} />
-      <Route path="reviews" element={<Reviews />} />
+      <Route
+        index
+        element={<Dashboard />}
+        loader={async ({ request }) => {
+          return await requireAuth(request);
+        }}
+      />
+      <Route
+        path="hostvans"
+        element={<HostVans />}
+        loader={async ({ request }) => {
+          return await requireAuth(request)
+        }}
+      />
+      <Route
+        path="income"
+        element={<Income />}
+        loader={async ({ request }) => {
+          return await requireAuth(request)
+        }}
+      />
+      <Route
+        path="reviews"
+        element={<Reviews />}
+        loader={async ({ request }) => {
+          return await requireAuth(request)
+        }}
+      />
     </Route>
     <Route path="about" element={<About />} />
     <Route path="vans" element={<Vans />} />
