@@ -8,7 +8,7 @@ import Layout from './component/Layout';
 import Error from './component/Error'
 import About from './pages/About';
 import Home from './pages/Home';
-import Login from './pages/Login';
+import Login, { action as loginAction } from './pages/Login';
 import Vans from './pages/Vans';
 import Dashboard from './pages/Host/Dashboard';
 import HostVans from './pages/Host/HostVans';
@@ -27,7 +27,11 @@ const router = createBrowserRouter(createRoutesFromElements(
     </Route>
     <Route path="about" element={<About />} />
     <Route path="vans" element={<Vans />} />
-    <Route path="login" element={<Login />} />
+    <Route
+      path="login"
+      element={<Login />}
+      action={loginAction}
+    />
   </Route>
 ))
 
