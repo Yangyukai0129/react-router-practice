@@ -22,9 +22,9 @@ export default function HostLayout() {
                 >Income
                 </NavLink>
                 <NavLink
-                    to="hostvans"
+                    to="vans"
                     style={({ isActive }) => isActive ? activeStyles : null}
-                >HostVans
+                >vans
                 </NavLink>
                 <NavLink
                     to="reviews"

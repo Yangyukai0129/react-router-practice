@@ -14,7 +14,7 @@ export default function HostVans() {
     return (
         <section>
             <h1 className="host-vans-title">Your list van</h1>
-            <React.Suspense fallback={<h2>Loading vans...</h2>}>
+            <React.Suspense fallback={<h2 className="host-fallback">Loading vans...</h2>}>
                 <Await resolve={dataPromise.van}>
                     {
                         (van) => {
@@ -44,6 +44,6 @@ export default function HostVans() {
                     }
                 </Await>
             </React.Suspense>
-        </section >
+        </section>
     )
 }

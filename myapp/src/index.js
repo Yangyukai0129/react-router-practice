@@ -12,6 +12,10 @@ import Login, { action as loginAction } from './pages/Login';
 import Vans from './pages/Vans';
 import Dashboard from './pages/Host/Dashboard';
 import HostVans, { loader as hostVansLoader } from './pages/Host/HostVans';
+import HostVanDetail, { loader as hostVanDetailLoader } from './pages/Host/HostVanDetail';
+import HostVanInfo from './pages/Host/HostVanInfo';
+import HostVanPhotos from './pages/Host/HostVanPhotos';
+import HostVanPricing from './pages/Host/HostVanPricing';
 import Income from './pages/Host/Income';
 import Reviews from './pages/Host/Reviews';
 import HostLayout from './component/HostLayout';
@@ -29,10 +33,37 @@ const router = createBrowserRouter(createRoutesFromElements(
         }}
       />
       <Route
-        path="hostvans"
+        path="vans"
         element={<HostVans />}
         loader={hostVansLoader}
       />
+      <Route
+        path="vans/:id"
+        element={<HostVanDetail />}
+        loader={hostVanDetailLoader}
+      >
+        <Route
+          index
+          element={<HostVanInfo />}
+          loader={async ({ request }) => {
+            return await requireAuth(request);
+          }}
+        />
+        <Route
+          path='photos'
+          element={<HostVanPhotos />}
+          loader={async ({ request }) => {
+            return await requireAuth(request);
+          }}
+        />
+        <Route
+          path='pricing'
+          element={<HostVanPricing />}
+          loader={async ({ request }) => {
+            return await requireAuth(request);
+          }}
+        />
+      </Route>
       <Route
         path="income"
         element={<Income />}
