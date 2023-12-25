@@ -18,14 +18,15 @@ export async function action({ request }) {
                 localStorage.setItem('user', JSON.stringify(login))
             }
         )
+
         // localStorage.setItem("login", true)
         setTimeout(function () {
             // 清除localStorage中的特定数据
             localStorage.removeItem('user')
             // console.log('localStorage data cleared!');
         }, 100000)
-        return redirect(pathname)
 
+        return redirect(pathname)
     }
     catch (err) {
         if (!email) {
