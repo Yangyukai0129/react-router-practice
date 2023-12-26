@@ -1,5 +1,5 @@
 import React from "react";
-import { defer, useLoaderData, useSearchParams } from "react-router-dom"
+import { defer, useLoaderData, useSearchParams, Link, Await } from "react-router-dom"
 import { getVans } from "../../api";
 
 export async function loader() {
@@ -24,7 +24,50 @@ export default function Vans() {
         })
     }
 
+    function renderVanElements(vans) {
+        const displayedVans = typeFilter ? vans.filter(item => item.type.toLowerCase() === typeFilter) : vans
+        const vanElements = displayedVans.map(van => (
+            <div key={van.id}>
+                <Link
+                    to={van.id}
+                >
+                    <img src={van.imageUrl} alt={`Photo of ${van.name}`} />
+                    <div>
+                        <h3>{van.name}</h3>
+                        <p>${van.price}<span>/day</span></p>
+                    </div>
+                    <i>{van.type}</i>
+                </Link>
+            </div>
+        ))
+        return (
+            <>
+                <div>
+                    <button onClick={() => handleFilterChange("type", "simple")}>
+                        simple
+                    </button>
+                    <button onClick={() => handleFilterChange("type", "rugged")}>
+                        rugged
+                    </button>
+                    <button onClick={() => handleFilterChange("type", "luxury")}>
+                        luxury
+                    </button>
+                    {typeFilter ? <button onClick={() => handleFilterChange("type", null)}>
+                        clear
+                    </button> : null}
+                </div>
+                <div>
+                    {vanElements}
+                </div>
+            </>
+        )
+    }
+
     return (
-        <div>Vans is here</div>
+        <React.Suspense fallback={<h2>Loading vans...</h2>}>
+            <Await resolve={dataPromise.vans}>
+                {renderVanElements}
+            </Await>
+        </React.Suspense>
     )
 }
