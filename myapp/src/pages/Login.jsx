@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, redirect, useActionData, useNavigation } from "react-router-dom"
 import Auth from "../api"
 
@@ -7,6 +7,7 @@ export async function action({ request }) {
     const email = formData.get("email")
     const password = formData.get("password")
     const pathname = new URL(request.url).searchParams.get("redirectTo") || "/host"
+
     try {
         await Auth(email, password).then(
             user => {
@@ -16,16 +17,17 @@ export async function action({ request }) {
                     login: "true"
                 }
                 localStorage.setItem('user', JSON.stringify(login))
+
+                setTimeout(() => {
+                    // 清除localStorage中的特定数据
+                    localStorage.removeItem("user");
+                    // console.log('localStorage data cleared!');
+                }, 10000);
             }
         )
         // localStorage.setItem("login", true)
-        setTimeout(function () {
-            // 清除localStorage中的特定数据
-            localStorage.removeItem('user')
-            // console.log('localStorage data cleared!');
-        }, 100000)
-        return redirect(pathname)
 
+        return redirect(pathname)
     }
     catch (err) {
         if (!email) {
@@ -41,6 +43,8 @@ export async function action({ request }) {
 export default function Login() {
     const navigation = useNavigation()
     const errorMessage = useActionData()
+
+
     // console.log(navigation)
     return (
         <div className="login-container">
