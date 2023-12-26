@@ -25,7 +25,16 @@ export async function action({ request }) {
                 }, 10000);
             }
         )
+
         // localStorage.setItem("login", true)
+<<<<<<< HEAD
+=======
+        setTimeout(function () {
+            // 清除localStorage中的特定数据
+            localStorage.removeItem('user')
+            // console.log('localStorage data cleared!');
+        }, 100000)
+>>>>>>> 5d746c2b4f2061104add32a05490ac5f9736c802
 
         return redirect(pathname)
     }
