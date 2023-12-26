@@ -9,7 +9,7 @@ import Error from './component/Error'
 import About from './pages/About';
 import Home from './pages/Home';
 import Login, { action as loginAction } from './pages/Login';
-import Vans from './pages/Vans/Vans';
+import Vans, { loader as vansLoader } from './pages/Vans/Vans';
 import VanDetail from './pages/Vans/VanDetail'
 import Dashboard from './pages/Host/Dashboard';
 import HostVans, { loader as hostVansLoader } from './pages/Host/HostVans';
@@ -81,7 +81,11 @@ const router = createBrowserRouter(createRoutesFromElements(
       />
     </Route>
     <Route path="about" element={<About />} />
-    <Route path="vans" element={<Vans />} />
+    <Route
+      path="vans"
+      element={<Vans />}
+      loader={vansLoader}
+    />
     <Route path="vans/:id" element={<VanDetail />} />
     <Route
       path="login"
