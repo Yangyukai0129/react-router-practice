@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Form, redirect, useActionData, useNavigation } from "react-router-dom"
+import React from "react";
+import { Form, redirect, useActionData, useNavigate, useNavigation } from "react-router-dom"
 import Auth from "../api"
 
 export async function action({ request }) {
@@ -12,18 +12,13 @@ export async function action({ request }) {
         await Auth(email, password).then(
             user => {
                 const uid = user.uid
-                const loginUser = user.user
                 const login = {
                     uid: uid,
                     login: "true",
-                    user: user
                 }
                 localStorage.setItem('user', JSON.stringify(login))
-
             }
         )
-
-        // localStorage.setItem("login", true)
 
         setTimeout(function () {
             // 清除localStorage中的特定数据
@@ -47,32 +42,18 @@ export async function action({ request }) {
 export default function Login() {
     const navigation = useNavigation()
     const errorMessage = useActionData()
-    const storedUser = localStorage.getItem("user") || '';
-    const [forceRender, setForceRender] = useState(0);
+    const storedUser = localStorage.getItem("user") || ''
+    const navigate = useNavigate()
 
-    function logout() {
+    function Logout() {
         localStorage.removeItem("user")
+        window.location.reload()
     }
 
-    useEffect(() => {
-        // 这里的代码会在组件渲染后执行，类似于componentDidUpdate
-        setForceRender(prev => prev + 1);
-    }, [forceRender]); // 当 forceRender 更新时触发 useEffect
+
     // console.log(navigation)
 
-    if (!!storedUser) {
-        return (
-            <div className="login-container">
-                <h1>Log out</h1>
-                <div>
-                    <button onClick={() => logout()}>
-                        logout
-                    </button>
-                </div>
-            </div>
-        )
-    }
-    else {
+    if (!storedUser) {
         return (
             <div className="login-container">
                 <h1>Sign in to your account</h1>
@@ -93,6 +74,20 @@ export default function Login() {
                     </button>
                 </Form>
             </div >
+        )
+    }
+    else {
+        return (
+            <div className="login-container">
+                {/* <h1>Hi,{user}</h1> */}
+                <div>
+                    <h2>Do you want to Log out?</h2>
+                    <button onClick={() => navigate(-1)}>No</button>
+                    <button onClick={() => Logout()}>
+                        Yes
+                    </button>
+                </div>
+            </div>
         )
     }
 }
