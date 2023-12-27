@@ -296,6 +296,10 @@ footer {
   margin: 30px 26px;
 }
 
+.van-detail-container {
+  margin-inline: 25px;
+}
+
 .van-type {
   height: 34px;
   padding: 6px 26px;
@@ -401,8 +405,44 @@ footer {
   font-weight: 300;
 }
 
+van-detail {
+  display: flex;
+  flex-direction: column;
+  color: #161616;
+}
+
+.van-detail img {
+  border-radius: 5px;
+  margin-block: 20px;
+}
+
+.van-detail h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.van-detail>i {
+  align-self: flex-start;
+}
+
 .van-type.selected {
   color: #ffead0;
+}
+
+.van-detail .van-price {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.van-detail .van-price span {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.van-detail .link-button {
+  background-color: #ff8c38;
+  color: white;
+  font-size: 1.125rem;
 }
 
 .van-type.simple:hover,

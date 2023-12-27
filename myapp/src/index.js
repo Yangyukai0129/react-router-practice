@@ -10,7 +10,7 @@ import About from './pages/About';
 import Home from './pages/Home';
 import Login, { action as loginAction } from './pages/Login';
 import Vans, { loader as vansLoader } from './pages/Vans/Vans';
-import VanDetail from './pages/Vans/VanDetail'
+import VanDetail, { loader as vanDetailLoadaer } from './pages/Vans/VanDetail'
 import Dashboard from './pages/Host/Dashboard';
 import HostVans, { loader as hostVansLoader } from './pages/Host/HostVans';
 import HostVanDetail, { loader as hostVanDetailLoader } from './pages/Host/HostVanDetail';
@@ -86,7 +86,11 @@ const router = createBrowserRouter(createRoutesFromElements(
       element={<Vans />}
       loader={vansLoader}
     />
-    <Route path="vans/:id" element={<VanDetail />} />
+    <Route
+      path="vans/:id"
+      element={<VanDetail />}
+      loader={vanDetailLoadaer}
+    />
     <Route
       path="login"
       element={<Login />}
