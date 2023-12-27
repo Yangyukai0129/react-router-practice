@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, redirect, useActionData, useNavigation } from "react-router-dom"
 import Auth from "../api"
 
@@ -12,9 +12,11 @@ export async function action({ request }) {
         await Auth(email, password).then(
             user => {
                 const uid = user.uid
+                const loginUser = user.user
                 const login = {
                     uid: uid,
-                    login: "true"
+                    login: "true",
+                    user: user
                 }
                 localStorage.setItem('user', JSON.stringify(login))
 
@@ -45,28 +47,52 @@ export async function action({ request }) {
 export default function Login() {
     const navigation = useNavigation()
     const errorMessage = useActionData()
+    const storedUser = localStorage.getItem("user") || '';
+    const [forceRender, setForceRender] = useState(0);
 
+    function logout() {
+        localStorage.removeItem("user")
+    }
 
+    useEffect(() => {
+        // 这里的代码会在组件渲染后执行，类似于componentDidUpdate
+        setForceRender(prev => prev + 1);
+    }, [forceRender]); // 当 forceRender 更新时触发 useEffect
     // console.log(navigation)
-    return (
-        <div className="login-container">
-            <h1>Sign in to your account</h1>
-            {errorMessage && <h3 className="red">{errorMessage}</h3>}
-            <Form method="post" className="login-form" replace>
-                <input
-                    name="email"
-                    type="email"
-                    placeholder="Email address"
-                />
-                <input
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                />
-                <button disabled={navigation.state === "submitting"}>
-                    {navigation.state === "submitting" ? "Logging" : "Log in"}
-                </button>
-            </Form>
-        </div >
-    )
+
+    if (!!storedUser) {
+        return (
+            <div className="login-container">
+                <h1>Log out</h1>
+                <div>
+                    <button onClick={() => logout()}>
+                        logout
+                    </button>
+                </div>
+            </div>
+        )
+    }
+    else {
+        return (
+            <div className="login-container">
+                <h1>Sign in to your account</h1>
+                {errorMessage && <h3 className="red">{errorMessage}</h3>}
+                <Form method="post" className="login-form" replace>
+                    <input
+                        name="email"
+                        type="email"
+                        placeholder="Email address"
+                    />
+                    <input
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                    />
+                    <button disabled={navigation.state === "submitting"}>
+                        {navigation.state === "submitting" ? "Logging" : "Log in"}
+                    </button>
+                </Form>
+            </div >
+        )
+    }
 }
