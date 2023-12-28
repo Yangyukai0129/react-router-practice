@@ -208,6 +208,10 @@ footer {
   max-width: 500px;
 }
 
+.login-form>h1 {
+  text-align: center;
+}
+
 .login-form>input {
   border: 1px solid rgba(209, 213, 219);
   height: 40px;
@@ -243,6 +247,29 @@ footer {
 .login-form>button:disabled {
   border-color: #aaaaaa;
   cursor: not-allowed;
+}
+
+.logout-button {
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.logout-button>button {
+  margin-block: 40px;
+  height: 55px;
+  width: 120px;
+  cursor: pointer;
+  background-color: #ff8c38;
+  color: white;
+  font-size: 1.125rem;
+  border-radius: 6px;
+  font-family: "Inter", sans-serif;
+  border: none;
+}
+
+.logout-button .logout-reject {
+  background-color: #4d4d4d;
 }
 
 .host-van-link-wrapper {

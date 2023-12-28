@@ -79,13 +79,18 @@ export default function Login() {
     else {
         return (
             <div className="login-container">
-                {/* <h1>Hi,{user}</h1> */}
-                <div>
-                    <h2>Do you want to Log out?</h2>
-                    <button onClick={() => navigate(-1)}>No</button>
-                    <button onClick={() => Logout()}>
-                        Yes
-                    </button>
+                <div className="login-form">
+                    <h1>Do you want to Log out?</h1>
+                    <div className="logout-button">
+                        <button
+                            className="logout-reject"
+                            onClick={() => navigate(-1)}>
+                            No
+                        </button>
+                        <button onClick={() => Logout()}>
+                            Yes
+                        </button>
+                    </div>
                 </div>
             </div>
         )
