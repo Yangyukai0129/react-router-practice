@@ -9,16 +9,13 @@ export async function action({ request }) {
     const pathname = new URL(request.url).searchParams.get("redirectTo") || "/host"
 
     try {
-        await Auth(email, password).then(
-            user => {
-                const uid = user.uid
-                const login = {
-                    uid: uid,
-                    login: "true",
-                }
-                localStorage.setItem('user', JSON.stringify(login))
-            }
-        )
+        const user = await Auth(email, password)
+        const uid = user.uid
+        const login = {
+            uid: uid,
+            login: "true",
+        }
+        localStorage.setItem('user', JSON.stringify(login))
 
         setTimeout(function () {
             // 清除localStorage中的特定数据
